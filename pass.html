@@ -1,0 +1,11 @@
+const bcrypt = require('bcryptjs');
+const password = 'Ganesh@2005'; // Replace with the password you want to set
+const saltRounds = 10; // Same salt rounds used in the existing hashes
+
+bcrypt.hash(password, saltRounds, function(err, hash) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    console.log('Generated Hash:', hash);
+});
