@@ -32,6 +32,7 @@ export function ProfileEditModal({ user, isOpen, onClose, onUpdate }: ProfileEdi
     year: currentUser.year || "",
     section: currentUser.section || "",
     profileImage: currentUser.profileImage || "",
+    newProfileImageFile: undefined as File | undefined, // To store the actual File object
   });
 
   const [formData, setFormData] = useState(getInitialFormData(user));
@@ -54,6 +55,7 @@ export function ProfileEditModal({ user, isOpen, onClose, onUpdate }: ProfileEdi
         setFormData((prev) => ({
           ...prev,
           profileImage: e.target?.result as string,
+          newProfileImageFile: file, // Store the actual file object
         }))
       }
       reader.readAsDataURL(file)
@@ -64,6 +66,7 @@ export function ProfileEditModal({ user, isOpen, onClose, onUpdate }: ProfileEdi
     setFormData((prev) => ({
       ...prev,
       profileImage: "", // Set to empty string to signify removal
+      newProfileImageFile: undefined, // Clear the file as well
     }))
   }
 
@@ -71,9 +74,26 @@ export function ProfileEditModal({ user, isOpen, onClose, onUpdate }: ProfileEdi
     e.preventDefault()
     setIsLoading(true)
     setErrorMsg("")
+
     try {
+      const dataToUpdate = new FormData()
+      // Append all text fields
+      Object.keys(formData).forEach((key) => {
+        if (key !== "profileImage" && key !== "newProfileImageFile") {
+          dataToUpdate.append(key, formData[key as keyof typeof formData])
+        }
+      })
+
+      // Handle image file or removal
+      if (formData.newProfileImageFile) {
+        dataToUpdate.append("profileImage", formData.newProfileImageFile)
+      } else if (formData.profileImage === "") {
+        // Explicitly send empty string if image was removed
+        dataToUpdate.append("profileImage", "")
+      }
+
       // The profileImage will be a base64 string if changed, or the original URL if not.
-      const result = await authService.updateUser(user.id, formData)
+      const result = await authService.updateUser(user.id, dataToUpdate)
       if (result.success && result.user) {
         onUpdate(result.user)
         onClose()

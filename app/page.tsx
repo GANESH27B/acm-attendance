@@ -109,8 +109,8 @@ export default function LandingPage() {
 
       {/* Enhanced Header */}
       <header className="relative z-10 bg-white/90 backdrop-blur-xl shadow-lg border-b border-white/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-75 animate-pulse-glow"></div>
@@ -119,19 +119,19 @@ export default function LandingPage() {
                 </div>
               </div>
               <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient">
+                <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient">
                   SmartAttend
                 </h1>
-                <p className="text-sm text-gray-600 font-medium">Next-Generation Attendance System</p>
+                <p className="text-xs sm:text-sm text-gray-600 font-medium">Next-Generation Attendance System</p>
               </div>
             </div>
 
-            <div className="hidden md:flex items-center space-x-8">
-              <div className="flex items-center space-x-2 text-sm text-gray-600 font-medium">
+            <div className="flex items-center space-x-4 md:space-x-8 mt-2 md:mt-0">
+              <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600 font-medium">
                 <Award className="h-4 w-4 text-yellow-500" />
                 <span>KL University Certified</span>
               </div>
-              <div className="flex items-center space-x-2 text-sm text-green-600 font-medium">
+              <div className="flex items-center space-x-2 text-xs sm:text-sm text-green-600 font-medium">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                 <span>All Systems Operational</span>
               </div>
@@ -140,17 +140,17 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
           {/* Enhanced Left Side - Hero Content */}
-          <div className="space-y-10 animate-slide-up">
-            <h1 className="text-6xl lg:text-8xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient text-center lg:text-left">
+          <div className="space-y-8 sm:space-y-10 animate-slide-up">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient text-center lg:text-left">
               WELCOME  TO ACM   SIGBED
             </h1>
           </div>
 
           {/* Enhanced Right Side - Auth Forms */}
-          <div className="max-w-lg mx-auto w-full animate-slide-up" style={{ animationDelay: "0.4s" }}>
+          <div className="max-w-md mx-auto w-full animate-slide-up" style={{ animationDelay: "0.4s" }}>
             <Card className="bg-white/95 backdrop-blur-xl border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-500 rounded-3xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5"></div>
               <CardHeader className="text-center pb-8 relative">

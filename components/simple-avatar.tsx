@@ -28,15 +28,15 @@ export function SimpleAvatar({ src, fallback, className = "", size = "md" }: Sim
           alt="Avatar" 
           className="w-full h-full rounded-full object-cover"
           onError={(e) => {
-            // If image fails to load, show fallback
-            const target = e.target as HTMLImageElement
-            target.style.display = 'none'
-            const parent = target.parentElement
+            // If image fails to load, show fallback text
+            e.currentTarget.style.display = 'none'; // Hide the broken image icon
+            const parent = e.currentTarget.parentElement;
             if (parent) {
-              parent.innerHTML = fallback
+                parent.querySelector('.avatar-fallback-text')?.classList.remove('hidden');
             }
           }}
         />
+        <span className="avatar-fallback-text hidden">{fallback}</span>
       </div>
     )
   }

@@ -305,36 +305,36 @@ Generated: ${new Date().toLocaleString()}`
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Enhanced Header */}
       <header className="bg-white/90 backdrop-blur-xl shadow-lg border-b border-white/30 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center space-x-3 sm:space-x-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-75 animate-pulse-glow"></div>
-                <div className="relative bg-white p-3 rounded-xl shadow-lg">
-                  <QrCode className="h-8 w-8 text-blue-600" />
+                <div className="relative bg-white p-2 sm:p-3 rounded-xl shadow-lg">
+                  <QrCode className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
                 </div>
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   SmartAttend
                 </h1>
-                <p className="text-sm text-gray-600 font-medium">Student Dashboard</p>
+                <p className="text-xs sm:text-sm text-gray-600 font-medium">Student Dashboard</p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-3 sm:space-x-6">
               {/* Enhanced Time and Date Display */}
-              <div className="hidden md:flex items-center space-x-6 bg-white/80 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg border border-white/30">
-                <div className="flex items-center space-x-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="hidden md:flex items-center space-x-4 sm:space-x-6 bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl px-4 sm:px-6 py-2 sm:py-3 shadow-lg border border-white/30">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse"></div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-gray-900 font-mono">{currentTime.toLocaleTimeString()}</div>
+                    <div className="text-sm sm:text-lg font-bold text-gray-900 font-mono">{currentTime.toLocaleTimeString()}</div>
                     <div className="text-xs text-gray-600">Live Time</div>
                   </div>
                 </div>
-                <div className="w-px h-8 bg-gray-300"></div>
+                <div className="w-px h-6 sm:h-8 bg-gray-300"></div>
                 <div className="text-center">
-                  <div className="text-sm font-semibold text-gray-900">
+                  <div className="text-xs sm:text-sm font-semibold text-gray-900">
                     {currentTime.toLocaleDateString("en-US", {
                       weekday: "short",
                       month: "short",
@@ -345,7 +345,7 @@ Generated: ${new Date().toLocaleString()}`
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 sm:space-x-4">
                 <div onClick={() => setIsUserInfoModalOpen(true)} className="cursor-pointer">
                   <SimpleAvatar
                     src={currentUser.profileImage || "/placeholder.svg"}
@@ -355,7 +355,7 @@ Generated: ${new Date().toLocaleString()}`
                           .map((n) => n[0])
                           .join("")
                       : "U"}
-                    className="h-10 w-10 ring-2 ring-blue-200 hover:ring-blue-400 transition-all duration-300"
+                    className="h-8 w-8 sm:h-10 sm:w-10 ring-2 ring-blue-200 hover:ring-blue-400 transition-all duration-300"
                     size="md"
                   />
                 </div>
@@ -379,14 +379,14 @@ Generated: ${new Date().toLocaleString()}`
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-12 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
           {/* Left Column - QR Code & User Info */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="lg:col-span-4 space-y-4 sm:space-y-6">
             {/* User Profile Card */}
             <Card className="bg-white/90 backdrop-blur-xl border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-500 card-hover">
-              <CardHeader className="text-center pb-4">
-                <div className="relative mx-auto mb-4">
+              <CardHeader className="text-center pb-3 sm:pb-4">
+                <div className="relative mx-auto mb-3 sm:mb-4">
                   <SimpleAvatar
                     src={currentUser.profileImage || "/placeholder.svg"}
                     fallback={currentUser.fullName
@@ -395,26 +395,26 @@ Generated: ${new Date().toLocaleString()}`
                           .map((n) => n[0])
                           .join("")
                       : "U"}
-                    className="h-24 w-24 ring-4 ring-blue-200 profile-image mx-auto"
+                    className="h-20 w-20 sm:h-24 sm:w-24 ring-4 ring-blue-200 profile-image mx-auto"
                     size="xl"
                   />
                   <Button
-                    size="sm"
+                    size="icon"
                     onClick={() => setIsEditModalOpen(true)}
-                    className="absolute -bottom-2 -right-2 rounded-full w-8 h-8 p-0 bg-blue-600 hover:bg-blue-700 shadow-lg"
+                    className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 rounded-full w-7 h-7 sm:w-8 sm:h-8 p-0 bg-blue-600 hover:bg-blue-700 shadow-lg"
                   >
-                    <Edit className="h-4 w-4" />
+                    <Edit className="h-3 w-3 sm:h-4 sm:w-4" />
                   </Button>
                 </div>
-                <CardTitle className="text-xl font-bold text-gray-900">{currentUser.fullName || "User"}</CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardTitle className="text-lg sm:text-xl font-bold text-gray-900">{currentUser.fullName || "User"}</CardTitle>
+                <CardDescription className="text-xs sm:text-sm text-gray-600">
                   {currentUser.registrationNumber && (
-                    <div className="font-mono text-sm mb-1">Reg: {currentUser.registrationNumber}</div>
+                    <div className="font-mono text-xs sm:text-sm mb-1">Reg: {currentUser.registrationNumber}</div>
                   )}
                   <div>{currentUser.department || "Department"}</div>
                   <div className="text-xs mt-1">{currentUser.email || "email@example.com"}</div>
                   {currentUser.acmMember && currentUser.acmRole && (
-                    <Badge className="mt-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold">
+                    <Badge className="mt-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-xs sm:text-sm">
                       ACM {currentUser.acmRole}
                     </Badge>
                   )}
@@ -424,37 +424,37 @@ Generated: ${new Date().toLocaleString()}`
 
             {/* QR Code Card */}
             <Card className="bg-white/90 backdrop-blur-xl border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-500">
-              <CardHeader className="text-center pb-4">
+              <CardHeader className="text-center pb-3 sm:pb-4">
                 <CardTitle className="flex items-center justify-center space-x-2">
-                  <QrCode className="h-5 w-5 text-blue-600" />
-                  <span>Your QR Code</span>
+                  <QrCode className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+                  <span className="text-lg sm:text-xl">Your QR Code</span>
                 </CardTitle>
-                <CardDescription>Show this to mark attendance</CardDescription>
+                <CardDescription className="text-xs sm:text-sm">Show this to mark attendance</CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-col items-center space-y-6">
+              <CardContent className="flex flex-col items-center space-y-4 sm:space-y-6">
                 <div className="relative">
-                  <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-3xl border-2 border-blue-200/50 shadow-inner">
-                    <div className="bg-white p-4 rounded-2xl shadow-lg">
-                      {qrCode && <QRCodeGenerator data={qrCode} size={200} />}
+                  <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-4 sm:p-6 rounded-2xl sm:rounded-3xl border-2 border-blue-200/50 shadow-inner">
+                    <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-lg">
+                      {qrCode && <QRCodeGenerator data={qrCode} size={160} />}
                     </div>
                   </div>
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-                    <CheckCircle2 className="h-4 w-4 text-white" />
+                  <div className="absolute -top-2 -right-2 w-7 h-7 sm:w-8 sm:h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                    <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
                   </div>
                 </div>
 
-                <div className="text-center space-y-2">
-                  <div className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
+                <div className="text-center space-y-1 sm:space-y-2">
+                  <div className="px-3 py-1 sm:px-4 sm:py-2 bg-green-100 text-green-700 rounded-full text-xs sm:text-sm font-semibold">
                     ✓ Active & Verified
                   </div>
                   <p className="text-xs text-gray-500">Generated: {new Date().toLocaleString()}</p>
                 </div>
 
-                <div className="flex space-x-3 w-full">
+                <div className="flex space-x-2 sm:space-x-3 w-full">
                   <Button
                     variant="outline"
                     size="sm"
-                    className="flex-1 hover:bg-blue-50 bg-white/80"
+                    className="flex-1 hover:bg-blue-50 bg-white/80 px-3 py-2 text-sm"
                     onClick={handleDownloadQR}
                   >
                     <Download className="h-4 w-4 mr-2" />
@@ -463,7 +463,7 @@ Generated: ${new Date().toLocaleString()}`
                   <Button
                     variant="outline"
                     size="sm"
-                    className="flex-1 hover:bg-purple-50 bg-white/80"
+                    className="flex-1 hover:bg-purple-50 bg-white/80 px-3 py-2 text-sm"
                     onClick={handleShareQR}
                   >
                     <Share2 className="h-4 w-4 mr-2" />
@@ -471,8 +471,8 @@ Generated: ${new Date().toLocaleString()}`
                   </Button>
                   <Button
                     variant="outline"
-                    size="sm"
-                    className="hover:bg-green-50 bg-white/80"
+                    size="icon"
+                    className="hover:bg-green-50 bg-white/80 h-8 w-8 sm:h-9 sm:w-9"
                     onClick={handleRefresh}
                     disabled={isRefreshing}
                   >
@@ -484,10 +484,10 @@ Generated: ${new Date().toLocaleString()}`
 
             {/* Attendance Percentage Card */}
             <Card className="bg-gradient-to-br from-green-500 to-emerald-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <CardContent className="p-6 text-center">
-                <TrendingUp className="h-10 w-10 mx-auto mb-3 opacity-90" />
-                <div className="text-4xl font-bold mb-2">{attendanceData.percentage || 0}%</div>
-                <div className="text-sm opacity-90 font-medium">Attendance Rate</div>
+              <CardContent className="p-4 sm:p-6 text-center">
+                <TrendingUp className="h-8 w-8 sm:h-10 sm:w-10 mx-auto mb-2 sm:mb-3 opacity-90" />
+                <div className="text-3xl sm:text-4xl font-bold mb-1 sm:mb-2">{attendanceData.percentage || 0}%</div>
+                <div className="text-xs sm:text-sm opacity-90 font-medium">Attendance Rate</div>
                 <div className="text-xs opacity-75 mt-1">
                   {attendanceData.attendedClasses || 0} of {attendanceData.totalClasses || 0} classes
                 </div>
@@ -496,47 +496,47 @@ Generated: ${new Date().toLocaleString()}`
           </div>
 
           {/* Right Column - Attendance Info */}
-          <div className="lg:col-span-8 space-y-6">
+          <div className="lg:col-span-8 space-y-4 sm:space-y-6">
             {/* Attendance Overview */}
             <Card className="bg-white/90 backdrop-blur-xl border-white/30 shadow-2xl">
               <CardHeader>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap gap-2">
                   <div>
                     <CardTitle className="flex items-center space-x-2">
-                      <BarChart3 className="h-6 w-6 text-blue-600" />
-                      <span>Attendance Overview</span>
+                      <BarChart3 className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
+                      <span className="text-lg sm:text-xl">Attendance Overview</span>
                     </CardTitle>
-                    <CardDescription>Your attendance performance this semester</CardDescription>
+                    <CardDescription className="text-xs sm:text-sm">Your attendance performance this semester</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200">Semester 1</Badge>
+                    <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200 text-xs px-2 py-1">Semester 1</Badge>
                     <div className="text-xs text-gray-500">
                       Last updated: {lastUpdated.toLocaleTimeString()}
                     </div>
-                    <Button variant="ghost" size="sm" onClick={handleRefresh} disabled={isRefreshing}>
+                    <Button variant="ghost" size="icon" onClick={handleRefresh} disabled={isRefreshing} className="h-7 w-7">
                       <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
                     </Button>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="grid sm:grid-cols-3 gap-8 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-6 sm:mb-8">
                   <div className="text-center">
-                    <div className="relative inline-flex items-center justify-center w-24 h-24 mb-4">
+                    <div className="relative inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 mb-3 sm:mb-4">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full opacity-10"></div>
-                      <div className="text-4xl font-bold text-gray-900">{attendanceData.totalClasses || 0}</div>
+                      <div className="text-3xl sm:text-4xl font-bold text-gray-900">{attendanceData.totalClasses || 0}</div>
                     </div>
-                    <div className="text-sm text-gray-600 font-semibold">Total Classes</div>
+                    <div className="text-xs sm:text-sm text-gray-600 font-semibold">Total Classes</div>
                   </div>
                   <div className="text-center">
-                    <div className="relative inline-flex items-center justify-center w-24 h-24 mb-4">
+                    <div className="relative inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 mb-3 sm:mb-4">
                       <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full opacity-10"></div>
-                      <div className="text-4xl font-bold text-green-600">{attendanceData.attendedClasses || 0}</div>
+                      <div className="text-3xl sm:text-4xl font-bold text-green-600">{attendanceData.attendedClasses || 0}</div>
                     </div>
-                    <div className="text-sm text-gray-600 font-semibold">Classes Attended</div>
+                    <div className="text-xs sm:text-sm text-gray-600 font-semibold">Classes Attended</div>
                   </div>
                   <div className="text-center">
-                    <div className="relative inline-flex items-center justify-center w-24 h-24 mb-4">
+                    <div className="relative inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 mb-3 sm:mb-4">
                       <div
                         className={`absolute inset-0 rounded-full opacity-10 ${
                           (attendanceData.percentage || 0) >= 85
@@ -546,31 +546,31 @@ Generated: ${new Date().toLocaleString()}`
                               : "bg-gradient-to-br from-red-500 to-pink-600"
                         }`}
                       ></div>
-                      <div className={`text-4xl font-bold ${getPercentageColor(attendanceData.percentage || 0)}`}>
+                      <div className={`text-3xl sm:text-4xl font-bold ${getPercentageColor(attendanceData.percentage || 0)}`}>
                         {attendanceData.percentage || 0}%
                       </div>
                     </div>
-                    <div className="text-sm text-gray-600 font-semibold">Attendance Rate</div>
+                    <div className="text-xs sm:text-sm text-gray-600 font-semibold">Attendance Rate</div>
                   </div>
                 </div>
 
                 {(attendanceData.totalClasses || 0) > 0 && (
-                  <div className="space-y-6">
+                  <div className="space-y-4 sm:space-y-6">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center space-x-2">
-                        <Target className="h-5 w-5 text-gray-500" />
-                        <span className="text-sm text-gray-600 font-semibold">Current Progress</span>
+                        <Target className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
+                        <span className="text-xs sm:text-sm text-gray-600 font-semibold">Current Progress</span>
                       </div>
-                      <span className="text-lg font-bold text-gray-900">{attendanceData.percentage || 0}%</span>
+                      <span className="text-base sm:text-lg font-bold text-gray-900">{attendanceData.percentage || 0}%</span>
                     </div>
 
-                    <Progress value={attendanceData.percentage || 0} className="h-4 bg-gray-200 rounded-full" />
+                    <Progress value={attendanceData.percentage || 0} className="h-3 sm:h-4 bg-gray-200 rounded-full" />
 
                     {(attendanceData.percentage || 0) < 75 && (
-                      <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                      <div className="p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg sm:rounded-xl">
                         <div className="flex items-center space-x-2">
-                          <Target className="h-5 w-5 text-red-600" />
-                          <p className="text-red-700 font-medium">
+                          <Target className="h-4 w-4 sm:h-5 sm:w-5 text-red-600" />
+                          <p className="text-xs sm:text-sm text-red-700 font-medium">
                             Attention: Your attendance is below the minimum requirement of 75%
                           </p>
                         </div>
@@ -580,12 +580,12 @@ Generated: ${new Date().toLocaleString()}`
                 )}
 
                 {(attendanceData.totalClasses || 0) === 0 && (
-                  <div className="text-center py-8">
-                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Calendar className="h-8 w-8 text-blue-600" />
+                  <div className="text-center py-6 sm:py-8">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                      <Calendar className="h-7 w-7 sm:h-8 sm:w-8 text-blue-600" />
                     </div>
-                    <p className="text-gray-600 font-medium text-lg mb-2">No classes scheduled yet</p>
-                    <p className="text-sm text-gray-500">Your attendance will be tracked once classes begin</p>
+                    <p className="text-base sm:text-lg text-gray-600 font-medium mb-1 sm:mb-2">No classes scheduled yet</p>
+                    <p className="text-xs sm:text-sm text-gray-500">Your attendance will be tracked once classes begin</p>
                   </div>
                 )}
               </CardContent>
@@ -594,45 +594,45 @@ Generated: ${new Date().toLocaleString()}`
             {/* Recent Attendance */}
             <Card className="bg-white/90 backdrop-blur-xl border-white/30 shadow-2xl">
               <CardHeader>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-wrap gap-2">
                   <div>
                     <CardTitle className="flex items-center space-x-2">
-                      <BookOpen className="h-6 w-6 text-purple-600" />
-                      <span>Recent Attendance</span>
+                      <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
+                      <span className="text-lg sm:text-xl">Recent Attendance</span>
                     </CardTitle>
-                    <CardDescription>Your latest attendance records</CardDescription>
+                    <CardDescription className="text-xs sm:text-sm">Your latest attendance records</CardDescription>
                   </div>
-                  <Button variant="outline" size="sm" className="hover:bg-blue-50 bg-white/80">
+                  <Button variant="outline" size="sm" className="hover:bg-blue-50 bg-white/80 px-3 py-1 text-sm">
                     View All
                   </Button>
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {attendanceData.recentAttendance && attendanceData.recentAttendance.length > 0 ? (
                     attendanceData.recentAttendance.map((record: any, index: number) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-5 bg-gradient-to-r from-gray-50 to-white rounded-2xl border border-gray-100 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+                        className="flex items-center justify-between p-4 sm:p-5 bg-gradient-to-r from-gray-50 to-white rounded-lg sm:rounded-2xl border border-gray-100 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
                       >
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-3 sm:space-x-4">
                           <div
-                            className={`w-4 h-4 rounded-full ${
+                            className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full ${
                               record.status === "present" ? "bg-green-500" : "bg-red-500"
                             } animate-pulse`}
                           ></div>
                           <div>
-                            <div className="font-semibold text-gray-900 text-lg">{record.subject}</div>
-                            <div className="text-sm text-gray-600 flex items-center space-x-3">
+                            <div className="font-semibold text-gray-900 text-base sm:text-lg">{record.subject}</div>
+                            <div className="text-xs sm:text-sm text-gray-600 flex flex-wrap items-center space-x-2 sm:space-x-3">
                               <div className="flex items-center space-x-1">
-                                <Calendar className="h-4 w-4" />
+                                <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
                                 <span>{record.date}</span>
                               </div>
                               {record.time !== "—" && (
                                 <>
                                   <span>•</span>
                                   <div className="flex items-center space-x-1">
-                                    <Clock className="h-4 w-4" />
+                                    <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
                                     <span>{record.time}</span>
                                   </div>
                                 </>
@@ -640,16 +640,16 @@ Generated: ${new Date().toLocaleString()}`
                             </div>
                           </div>
                         </div>
-                        <Badge className={`${getStatusColor(record.status)} font-semibold px-3 py-1`}>
+                        <Badge className={`${getStatusColor(record.status)} font-semibold px-2 py-1 text-xs sm:text-sm`}>
                           {record.status === "present" ? "Present" : "Absent"}
                         </Badge>
                       </div>
                     ))
                   ) : (
-                    <div className="text-center py-12">
-                      <BookOpen className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600 font-medium text-lg">No attendance records yet</p>
-                      <p className="text-sm text-gray-500">Your attendance history will appear here</p>
+                    <div className="text-center py-9 sm:py-12">
+                      <BookOpen className="h-14 w-14 sm:h-16 sm:w-16 text-gray-400 mx-auto mb-3 sm:mb-4" />
+                      <p className="text-base sm:text-lg text-gray-600 font-medium mb-1 sm:mb-2">No attendance records yet</p>
+                      <p className="text-xs sm:text-sm text-gray-500">Your attendance history will appear here</p>
                     </div>
                   )}
                 </div>

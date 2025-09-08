@@ -198,17 +198,25 @@ export const authService = {
 
   updateUser: async (
     userId: string,
-    updates: Partial<User>,
+    updates: Partial<User> | FormData,
   ): Promise<{ success: boolean; user?: User; error?: string }> => {
     try {
       const token = authService.getAuthToken()
+      const headers: HeadersInit = {}
+      let body: BodyInit | null = null
+
+      if (updates instanceof FormData) {
+        // If FormData, let the browser set the Content-Type header (multipart/form-data)
+        body = updates
+      } else {
+        headers["Content-Type"] = "application/json"
+        body = JSON.stringify(updates)
+      }
+
       const response = await fetch(`/api/users/${userId}`, {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(updates),
+        headers,
+        body,
       })
 
       const data = await response.json()

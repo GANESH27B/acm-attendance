@@ -45,10 +45,12 @@ const mapToDbUpdates = (updates: any): any => {
     acmRole: "acm_role",
     year: "year",
     section: "section",
+    isActive: "is_active",
+    role: "role",
   }
 
   return Object.keys(updates).reduce((acc, key) => {
-    if (keyMap[key]) {
+    if (keyMap[key] !== undefined) {
       acc[keyMap[key]] = updates[key]
     }
     return acc
@@ -90,28 +92,66 @@ const updateUserHandler: AuthorizedHandler<{ userId: string }> = async (
   context
 ) => {
   const { userId } = context.params
-  const updates = await request.json()
+  const contentType = request.headers.get("content-type") || ""
+  let updates: Record<string, any> = {}
 
-  // --- Start of new image handling logic ---
   try {
-    // Handle image upload/removal BEFORE mapping keys for DB update
-    if (updates.profileImage && updates.profileImage.startsWith("data:image")) {
+    // Use FormData for file uploads, which is more robust, especially for mobile.
+    if (contentType.includes("multipart/form-data")) {
+      const formData = await request.formData()
+      formData.forEach((value, key) => {
+        updates[key] = value
+      })
+    } else {
+      // Fallback to JSON for non-file updates
+      updates = await request.json()
+    }
+  } catch (error) {
+    console.error("Failed to parse request body:", error)
+    return NextResponse.json(
+      { success: false, error: "Invalid request body." },
+      { status: 400 }
+    )
+  }
+
+  // --- Image processing ---
+  try {
+    const profileImageValue = updates.profileImage
+    if (profileImageValue instanceof File && profileImageValue.size > 0) {
+      // Handle file upload from FormData
       const currentUserResult = await UserModel.findById(userId)
       await deleteOldImage(currentUserResult.data?.profile_image)
 
-      const base64Data = updates.profileImage.replace(/^data:image\/\w+;base64,/, "")
+      const buffer = Buffer.from(await profileImageValue.arrayBuffer())
+      const fileExtension = path.extname(profileImageValue.name) || ".png"
+      const filename = `${userId}-${Date.now()}${fileExtension}`
+      const uploadDir = path.join(process.cwd(), "public", "uploads", "avatars")
+      await fs.mkdir(uploadDir, { recursive: true })
+      const filePath = path.join(uploadDir, filename)
+      await fs.writeFile(filePath, buffer)
+      updates.profileImage = `/uploads/avatars/${filename}`
+    } else if (
+      typeof profileImageValue === "string" &&
+      profileImageValue.startsWith("data:image")
+    ) {
+      // Handle base64 image upload from JSON
+      const currentUserResult = await UserModel.findById(userId)
+      await deleteOldImage(currentUserResult.data?.profile_image)
+
+      const base64Data = profileImageValue.replace(/^data:image\/\w+;base64,/, "")
       const buffer = Buffer.from(base64Data, "base64")
-      const fileExtension = updates.profileImage.split(";")[0].split("/")[1] || "png"
+      const fileExtension = profileImageValue.split(";")[0].split("/")[1] || "png"
       const filename = `${userId}-${Date.now()}.${fileExtension}`
       const uploadDir = path.join(process.cwd(), "public", "uploads", "avatars")
       await fs.mkdir(uploadDir, { recursive: true })
       const filePath = path.join(uploadDir, filename)
       await fs.writeFile(filePath, buffer)
-      updates.profileImage = `/uploads/avatars/${filename}` // This will be mapped to `profile_image`
-    } else if (updates.profileImage === "") {
+      updates.profileImage = `/uploads/avatars/${filename}`
+    } else if (profileImageValue === "") {
+      // Handle image removal
       const currentUserResult = await UserModel.findById(userId)
       await deleteOldImage(currentUserResult.data?.profile_image)
-      updates.profileImage = null // Set to null to clear in DB
+      updates.profileImage = null
     }
   } catch (error) {
     console.error("Failed to process image:", error)
@@ -120,17 +160,24 @@ const updateUserHandler: AuthorizedHandler<{ userId: string }> = async (
       { status: 500 }
     )
   }
-  // --- End of new image handling logic ---
 
-  // Sanitize: convert empty string dateOfBirth to null
-  if ("dateOfBirth" in updates && updates.dateOfBirth === "") {
+  // Sanitize inputs that might come from FormData as strings
+  if (updates.dateOfBirth === "") {
     updates.dateOfBirth = null
   }
+  if (typeof updates.acmMember === "string") {
+    updates.acmMember = updates.acmMember === "true"
+  }
+  if (typeof updates.isActive === "string") {
+    updates.isActive = updates.isActive === "true"
+  }
+
   const dbUpdates = mapToDbUpdates(updates)
 
   // Security: Non-admins cannot change their own role or other sensitive fields.
-  if (context.decoded.role !== "admin" && "role" in dbUpdates) {
+  if (context.decoded.role !== "admin") {
     delete dbUpdates.role
+    delete dbUpdates.is_active
   }
 
   const result = await UserModel.updateById(userId, dbUpdates)
@@ -138,7 +185,6 @@ const updateUserHandler: AuthorizedHandler<{ userId: string }> = async (
     const frontendUser = mapUserToFrontend(result.user)
     return NextResponse.json({ success: true, user: frontendUser })
   }
-  // Return the real error message for debugging
   return NextResponse.json(
     { error: result.error || "Failed to update user" },
     { status: 500 }
